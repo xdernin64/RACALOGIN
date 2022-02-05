@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">RACALOGIN</string>
+    <string name="txt_id">Ingrese su código</string>
+    <string name="txt_pwd" > Ingrese su Contraseña</string>
+    <string name="btn_Login">Iniciar sesión</string>
+    <string name="lv_registrar">Registrate aquí</string>
+    <string name="a_n_no_estas_registrado">¿Aún no estas registrado?</string>
+    <string name="logo_RACA">RACA AGK v1.0</string>
+    <string name="txt_nombres">Ingrese sus nombres</string>
+    <string name="txt_apellidos">Ingrese sus apellidos</string>
+    <string name="txt_celular">Ingrese su numero de celular</string>
+    <string name="txt_email">Ingrese su correo</string>
+    <string name="btn_registro">Registrar</string>
+    <string name="lv_registrado">¿Ya estás registrado?</string>
+    <string name="lv_login">Inicia sesión aquí</string>
+    <string name="registrado">"¿No estás registrado? "</string>
+</resources>
