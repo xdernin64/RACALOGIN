@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">RACALOGIN</string>
     <string name="txt_id">Ingrese su código</string>
-    <string name="txt_pwd" > Ingrese su Contraseña</string>
+    <string name="txt_pwd"> Ingrese su Contraseña</string>
     <string name="btn_Login">Iniciar sesión</string>
     <string name="lv_registrar">Registrate aquí</string>
     <string name="a_n_no_estas_registrado">¿Aún no estas registrado?</string>
@@ -14,4 +14,16 @@
     <string name="lv_registrado">¿Ya estás registrado?</string>
     <string name="lv_login">Inicia sesión aquí</string>
     <string name="registrado">"¿No estás registrado? "</string>
+    <string name="title_activity_menudeusuario">Menudeusuario</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="btn_logout">Cerrar sesión</string>
 </resources>

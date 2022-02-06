@@ -31,15 +31,15 @@
                 android:textSize="60sp" />
 
             <EditText
-                android:id="@+id/txt_id"
+                android:id="@+id/txt_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:ems="10"
                 android:gravity="center"
-                android:hint="@string/txt_id"
+                android:hint="@string/txt_email"
                 android:importantForAutofill="no"
-                android:inputType="number"
+                android:inputType="textEmailAddress"
                 android:minHeight="48dp"
                 tools:ignore="TextContrastCheck,TextContrastCheck,TextContrastCheck" />
 

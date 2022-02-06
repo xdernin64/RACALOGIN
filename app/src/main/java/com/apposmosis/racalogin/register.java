@@ -46,7 +46,7 @@ public class register extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mDatabase=FirebaseDatabase.getInstance().getReference();
 
-        codigo=(EditText) findViewById(R.id.txt_id);
+        codigo=(EditText) findViewById(R.id.txt_email);
         nombres=(EditText)findViewById(R.id.txt_nombres);
         apellidos=(EditText)findViewById(R.id.txt_apellidos);
         celular=(EditText)findViewById(R.id.txt_celular);
@@ -139,7 +139,7 @@ public class register extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<Void> task2) {
                             if (task2.isSuccessful()){
-                                startActivity((new Intent(register.this,MainActivity.class)));
+                                startActivity((new Intent(register.this,Datosusuario.class)));
                                 finish();
                             }
                             else
