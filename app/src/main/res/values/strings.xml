@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">RACALOGIN</string>
     <string name="txt_id">Ingrese su código</string>
-    <string name="txt_pwd" > Ingrese su Contraseña</string>
+    <string name="txt_pwd"> Ingrese su Contraseña</string>
     <string name="btn_Login">Iniciar sesión</string>
     <string name="lv_registrar">Registrate aquí</string>
     <string name="a_n_no_estas_registrado">¿Aún no estas registrado?</string>
