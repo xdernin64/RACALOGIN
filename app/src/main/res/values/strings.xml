@@ -26,4 +26,20 @@
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="btn_logout">Cerrar sesión</string>
+    <string name="tv_registrarsalida">REGISTRAR SALIDA</string>
+    <string name="btn_mostralout">TODO</string>
+    <string name="logoutascii">➲</string>
+    <string name="cargandonombres">Cargando Datos.....</string>
+    <string name="cargandocodigo">Cargando codigo....</string>
+    <string name="TV_HORAEXTRA">Horas extras:</string>
+    <string name="TV_HORAEXTRAPAGADAS">Horas compensadas:</string>
+    <string name="TV_HORASTOTALES">Horas Totales:</string>
+    <string name="cargando_horasextras">Cargando Horas....</string>
+    <string name="INGRESEHORA">HORAS</string>
+    <string name="INGRESEMINUTOS">MINUTOS</string>
+    <string name="separadorhoras">:</string>
+    <string name="asciiconfirmacion">✚</string>
+    <string name="turnonoche">NOCHE</string>
+    <string name="formatofechahint">dd:mm:aaaa</string>
+
 </resources>

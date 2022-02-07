@@ -11,11 +11,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -35,6 +38,7 @@ public class register extends AppCompatActivity {
 
     FirebaseAuth mAuth;
     DatabaseReference mDatabase;
+    FirebaseFirestore mFirestore;
 
 
 
@@ -45,6 +49,7 @@ public class register extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         mDatabase=FirebaseDatabase.getInstance().getReference();
+        mFirestore=FirebaseFirestore.getInstance();
 
         codigo=(EditText) findViewById(R.id.txt_email);
         nombres=(EditText)findViewById(R.id.txt_nombres);
@@ -55,6 +60,7 @@ public class register extends AppCompatActivity {
 
         btnregistrar=findViewById(R.id.btn_register);
         iralogin=findViewById(R.id.tv_iralogin);
+
 
         //datos a registrar
 
@@ -119,23 +125,18 @@ public class register extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
                     Map<String, Object> map= new HashMap<>();
-                    /*
-                                databaseReference.child("Usuarios").child(codigotext).child("Apellidos").setValue(apellidostext);
-                                databaseReference.child("Usuarios").child(codigotext).child("Nombres").setValue(nombrestext);
-                                databaseReference.child("Usuarios").child(codigotext).child("Celular").setValue(celulartext);
-                                databaseReference.child("Usuarios").child(codigotext).child("Password").setValue(contrasenatext);
-                                databaseReference.child("Usuarios").child(codigotext).child("Correo").setValue(correotext);
-                                Toast.makeText(register.this, "El usuario se ha registrado correctamente", Toast.LENGTH_SHORT).show();
-                                */
-                    map.put("Codigo",codigotext);
-                    map.put("Apellidos",apellidostext);
-                    map.put("Nombres",nombrestext);
-                    map.put("Celular",celulartext);
-                    map.put("Correo",correotext);
-                    map.put("Contrasena",contrasenatext);
 
                     String id=mAuth.getCurrentUser().getUid();
-                    mDatabase.child("Usuarios").child(id).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+
+                    map.put("codigo",codigotext);
+                    map.put("apellidos",apellidostext);
+                    map.put("nombres",nombrestext);
+                    map.put("celular",celulartext);
+                    map.put("correo",correotext);
+                    map.put("password",contrasenatext);
+                    map.put("uid",id);
+                    //mDatabase.child("Usuarios").child(id).setValue(map).
+                        mFirestore.collection("usuarios").document(id).set(map).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task2) {
                             if (task2.isSuccessful()){
@@ -144,6 +145,7 @@ public class register extends AppCompatActivity {
                             }
                             else
                             {
+
                                 Toast.makeText(register.this,"No se crearon los datos correctos", Toast.LENGTH_SHORT).show();
                             }
 
