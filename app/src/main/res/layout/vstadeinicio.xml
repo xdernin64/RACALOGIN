@@ -3,15 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#FFFFFF"
-    tools:context=".Datosusuario">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="412dp"
-        android:layout_height="148dp"
-        android:layout_marginTop="4dp"
+        android:layout_width="387dp"
+        android:layout_height="153dp"
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
@@ -59,21 +56,23 @@
                 android:minHeight="48dp"
                 android:text="@string/logoutascii"
                 android:textSize="29sp"
-                android:visibility="visible" />
+                android:visibility="visible"
+                tools:ignore="TouchTargetSizeCheck" />
 
         </LinearLayout>
 
     </LinearLayout>
 
     <ScrollView
-        android:layout_width="411dp"
-        android:layout_height="590dp"
+        android:layout_width="378dp"
+        android:layout_height="516dp"
+        android:layout_marginTop="202dp"
         android:padding="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.484"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:layout_constraintTop_toTopOf="@+id/linearLayout"
         app:layout_constraintVertical_bias="0.0">
 
         <LinearLayout
@@ -100,7 +99,6 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:hint="@string/cargando_horasextras"
-
                     tools:ignore="TextContrastCheck" />
 
                 <TextView
@@ -240,11 +238,6 @@
                     android:textStyle="bold" />
 
             </LinearLayout>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rcv_listausuarios"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
 
         </LinearLayout>
     </ScrollView>
