@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:textAlignment="center">
+
+        <TextView
+            android:id="@+id/tvshow_fecha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:hint="@string/cargandofecha"
+            android:textAlignment="center"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            tools:ignore="TextContrastCheck" />
+
+        <TextView
+            android:id="@+id/tvshow_nombres"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:hint="@string/cargandonombres"
+            tools:ignore="TextContrastCheck" />
+
+        <TextView
+            android:id="@+id/tvshow_salida"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:hint="@string/cargandohorasextras"
+            tools:ignore="TextContrastCheck" />
+
+        <TextView
+            android:id="@+id/tvshow_horasextras"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:hint="@string/cargando_horasextras"
+            tools:ignore="TextContrastCheck" />
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

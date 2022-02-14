@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +16,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 
 public class login extends AppCompatActivity {
@@ -25,6 +27,16 @@ public class login extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            // User is signed in
+            Intent i = new Intent(login.this, Datosusuario.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(i);
+        } else {
+            // User is signed out
+            Toast.makeText(login.this, "Ningun usuario logeado", Toast.LENGTH_SHORT).show();
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         email=findViewById(R.id.txt_email);
@@ -45,34 +57,6 @@ public class login extends AppCompatActivity {
         }
         else   {
             loginuser();
-            /*databaseReference.child("Usuarios").addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (snapshot.hasChild(codigotext)){
-                        final String getPassword=snapshot.child(codigotext).child("Password").getValue(String.class);
-
-                        if (getPassword.equals(passwordtext)){
-                            Toast.makeText(login.this, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(login.this,MainActivity.class));
-
-                        }
-                        else {
-                            Toast.makeText(login.this, "Contraseña incorrecta incorrecta", Toast.LENGTH_SHORT).show();
-                        }
-                        }
-                    else{
-                        Toast.makeText(login.this, "El usuario no existe", Toast.LENGTH_SHORT).show();
-                    }
-
-                    }
-
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });*/
-
         }
         
         }
