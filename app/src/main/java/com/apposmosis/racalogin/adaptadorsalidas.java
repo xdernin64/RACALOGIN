@@ -1,5 +1,6 @@
 package com.apposmosis.racalogin;
 import android.app.Activity;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,47 +10,63 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.progressindicator.BaseProgressIndicator;
+import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 
-public class adaptadorsalidas extends RecyclerView.Adapter<adaptadorsalidas.myviewholder> {
-     Datosusuario salidasusuario;
-     List<model> mList;
-     public adaptadorsalidas(Datosusuario salidasusuario,List<model>mList){
-         this.salidasusuario= salidasusuario;
-         this.mList=mList;
+public class adaptadorsalidas extends RecyclerView.Adapter<adaptadorsalidas.MyViewHolder> {
+    Context context;
+    ArrayList<model> salidasArrayList;
 
-     };
+    public  adaptadorsalidas(Context context,ArrayList<model> salidasArrayList){
+        this.context=context;
+        this.salidasArrayList=salidasArrayList;
 
+    }
     @NonNull
     @Override
-    public myviewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v= LayoutInflater.from(salidasusuario).inflate(R.layout.salida , parent ,false);
-        return new myviewholder(v);
+    public adaptadorsalidas.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(context).inflate(R.layout.salida , parent , false);
+        return new MyViewHolder(v);
+
     }
 
     @Override
-    public void onBindViewHolder(@NonNull myviewholder holder, int position) {
-        holder.fecha.setText(mList.get(position).getFecha());
-        holder.nombres.setText(mList.get(position).getNombres());
-        holder.horasalida.setText(mList.get(position).getHorasalida());
-        holder.horasextras.setText(mList.get(position).getHorasextras());
+    public void onBindViewHolder(@NonNull adaptadorsalidas.MyViewHolder holder, int position) {
+    model modelo= salidasArrayList.get(position);
+        Integer segundos= Integer.parseInt(String.valueOf(modelo.fecha.getSeconds()));
+        Date date = new Date(segundos*1000L);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+        String formattedDate = sdf.format(date);
+
+        holder.tvfecha.setText(String.valueOf(formattedDate));
+    holder.tvcodigo.setText(modelo.codigo);
+    holder.tvhsalida.setText(modelo.horadesalida);
+    holder.tvhextras.setText(String.valueOf(modelo.horasextra));
+
 
     }
 
     @Override
     public int getItemCount() {
-        return mList.size();
+        return salidasArrayList.size();
     }
 
-    public static class myviewholder extends RecyclerView.ViewHolder{
-        TextView fecha,nombres,horasalida,horasextras;
-        public myviewholder(@NonNull View itemView) {
+    public static class MyViewHolder extends RecyclerView.ViewHolder{
+        TextView tvfecha,tvcodigo,tvhsalida,tvhextras;
+        public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            fecha=itemView.findViewById(R.id.tvshow_fecha);
-            nombres=itemView.findViewById(R.id.tv_apellidos);
-            horasalida=itemView.findViewById(R.id.tvshow_fecha);
-            horasextras=itemView.findViewById(R.id.tvshow_horasextras);
+            tvfecha=itemView.findViewById(R.id.tvshow_fecha);
+            tvcodigo=itemView.findViewById(R.id.tvshow_codigo);
+            tvhsalida=itemView.findViewById(R.id.tvshow_salida);
+            tvhextras=itemView.findViewById(R.id.tvshow_horasextras);
 
         }
     }

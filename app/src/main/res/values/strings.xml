@@ -43,5 +43,6 @@
     <string name="formatofechahint">dd:mm:aaaa</string>
     <string name="cargandofecha">Cargando salidas...</string>
     <string name="cargandohorasextras">Cargando horas extras...</string>
+    <string name="btn_salidsa">Mostrar salidas</string>
 
 </resources>

@@ -15,6 +15,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -22,6 +23,9 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -32,16 +36,15 @@ import java.util.Map;
 
 
 public class Datosusuario extends AppCompatActivity {
-    private Button btnlogout,btnguardarhora;
+    private Button btnlogout,btnguardarhora,btnmostrarsalidas;
     private FirebaseAuth mAuth;
     private TextView tvcodigo,tvapellidos,tvfecha,tvhorasalida,tvminutosalida;
     private FirebaseFirestore firestore;
     private Switch noche;
-    //adaptador
-    private adaptadorsalidas myadaptadorsalidas;
-    private List<model> list;
 
-    RecyclerView rcvsalidas;
+
+
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +60,7 @@ public class Datosusuario extends AppCompatActivity {
     tvfecha=findViewById(R.id.txt_fecha);
     tvhorasalida=findViewById(R.id.txt_horasalida);
     tvminutosalida=findViewById(R.id.txt_minutosalida);
+    btnmostrarsalidas=findViewById(R.id.btn_mostrarsalidas);
     noche=findViewById(R.id.switch_noche);
         InputFilter[] filterArray = new InputFilter[1];
         filterArray[0] = new InputFilter.LengthFilter(2);
@@ -68,18 +72,6 @@ public class Datosusuario extends AppCompatActivity {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         String dateString = sdf.format(date);
         tvfecha.setText(dateString);
-    rcvsalidas=findViewById(R.id.rcv_listausuarios);
-    rcvsalidas.setHasFixedSize(true);
-    rcvsalidas.setLayoutManager(new LinearLayoutManager(this));
-    //adaptador para listas
-        list = new ArrayList<>();
-        myadaptadorsalidas=new adaptadorsalidas(this,list);
-        showdata();
-
-
-
-
-
 
     btnlogout.setOnClickListener(new View.OnClickListener() {
         @Override
@@ -104,6 +96,12 @@ public class Datosusuario extends AppCompatActivity {
                 tvhorasalida.setVisibility(view.VISIBLE);
                 tvminutosalida.setVisibility(view.VISIBLE);
             }
+        }
+    });
+    btnmostrarsalidas.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            startActivity(new Intent(Datosusuario.this,salidas.class));
         }
     });
     btnguardarhora.setOnClickListener(new View.OnClickListener() {
@@ -132,9 +130,12 @@ public class Datosusuario extends AppCompatActivity {
                     Double minutos=Double.parseDouble(strmsalida);
                     String codigotxt=tvcodigo.getText().toString();
                     String horasalida= tvhorasalida.getText().toString()+":"+tvminutosalida.getText().toString();
-                    Double tiempoextra=(horas+(minutos/60))-14.75;
-                    //Date fechatedate= new Date(fechats,"dd/mm/yy");
+                    DecimalFormat df = new DecimalFormat("###.##");
 
+                    Double input=((horas+(minutos/60))-14.75);
+                    //Date fechatedate= new Date(fechats,"dd/mm/yy");
+                    BigDecimal bd = new BigDecimal(input).setScale(2, RoundingMode.HALF_UP);
+                    double tiempoextra = bd.doubleValue();
 
                     if (tiempoextra>1){
                         tiempoextra=tiempoextra+0;
@@ -164,7 +165,7 @@ public class Datosusuario extends AppCompatActivity {
                     map.put("horadesalida",horasalida);
                     map.put("horasextra",tiempoextra);
                     map.put("uid",id);
-                    firestore.collection("salidas").document(id).set(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    firestore.collection("salidas").document().set(map).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task2) {
                             if (task2.isSuccessful()){
@@ -192,21 +193,6 @@ public class Datosusuario extends AppCompatActivity {
         informaciondeusuario();
     }
 
-    private void showdata() {
-        firestore.collection("salidas").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-            list.clear();
-            for (DocumentSnapshot snapshot:task.getResult())
-                {
-                    model model=new model(snapshot.getString("fecha"),snapshot.getString("apellidos"),snapshot.getString("horasalida"),snapshot.getString("horasextras"));
-
-                }
-
-       }
-
-        });
-    }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
 

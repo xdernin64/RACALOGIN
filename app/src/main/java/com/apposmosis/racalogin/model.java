@@ -1,48 +1,60 @@
 package com.apposmosis.racalogin;
 
+
+import com.google.firebase.Timestamp;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class model {
-    private  String fecha;
-    private  String nombres;
-    private  String horasalida;
-    private  String horasextras;
+      Timestamp fecha;
+      String codigo;
+      String horadesalida;
+      Double horasextra;
 
-    public model(){}
-    public model(String fecha, String nombres,String horasalida,String horasextras){
+      public model(){}
+
+    public model(Timestamp fecha, String codigo,String horadesalida,Double horasextra){
         this.fecha=fecha;
-        this.nombres=nombres;
-        this.horasalida=horasalida;
-        this.horasextras=horasextras;
+        this.codigo=codigo;
+        this.horadesalida=horadesalida;
+        this.horasextra=horasextra;
     }
 
-    public String getFecha() {
-        return fecha;
+    public Timestamp getFecha() {
+
+          return fecha;
     }
 
-    public void setFecha(String fecha) {
+    public void setFecha(Timestamp fecha) {
+
         this.fecha = fecha;
     }
 
-    public String getNombres() {
-        return nombres;
+    public String getCodigo() {
+
+          return codigo;
     }
 
-    public void setNombres(String nombres) {
-        this.nombres = nombres;
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
     }
 
-    public String getHorasalida() {
-        return horasalida;
+    public String getHoradesalida() {
+        return horadesalida;
     }
 
-    public void setHorasalida(String horasalida) {
-        this.horasalida = horasalida;
+    public void setHoradesalida(String horadesalida) {
+        this.horadesalida = horadesalida;
     }
 
-    public String getHorasextras() {
-        return horasextras;
+    public Double getHorasextra() {
+        return horasextra;
     }
 
-    public void setHorasextras(String horasextras) {
-        this.horasextras = horasextras;
+    public void setHorasextra(Double horasextra) {
+        this.horasextra = horasextra;
+
     }
 }

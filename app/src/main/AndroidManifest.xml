@@ -13,13 +13,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RACALOGIN">
         <activity
-            android:name=".Datosusuario"
+            android:name=".salidas"
             android:exported="false" />
         <activity
-            android:name=".Menudeusuario"
-            android:exported="false"
-            android:label="@string/title_activity_menudeusuario"
-            android:theme="@style/Theme.RACALOGIN.NoActionBar" />
+            android:name=".Datosusuario"
+            android:exported="false" />
         <activity
             android:name=".register"
             android:exported="false" />
