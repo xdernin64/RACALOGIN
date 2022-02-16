@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,12 +19,15 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
@@ -35,6 +39,8 @@ public class salidas extends AppCompatActivity {
     ArrayList<model> salidasArrayList;
     adaptadorsalidas miadaptador;
     ProgressDialog progressDialog;
+    FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +50,7 @@ public class salidas extends AppCompatActivity {
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Cargando salidas");
         progressDialog.show();
+        mAuth=FirebaseAuth.getInstance();
 
 
         rcvsalidas = findViewById(R.id.rec_salidas);
@@ -54,14 +61,14 @@ public class salidas extends AppCompatActivity {
         salidasArrayList= new ArrayList<model>();
         miadaptador=new adaptadorsalidas(salidas.this,salidasArrayList);
         rcvsalidas.setAdapter(miadaptador);
+
         EventChangeListener();
-
-
 
     }
 
     private void EventChangeListener() {
-        db.collection("salidas").orderBy("fecha",Query.Direction.DESCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
+        String id=mAuth.getCurrentUser().getUid();
+        db.collection("salidas").whereEqualTo("uid",id).orderBy("fecha",Query.Direction.DESCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 if (error!=null)

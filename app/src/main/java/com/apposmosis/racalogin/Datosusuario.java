@@ -4,7 +4,12 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.icu.util.Calendar;
+import android.icu.util.GregorianCalendar;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.InputFilter;
@@ -41,6 +46,8 @@ public class Datosusuario extends AppCompatActivity {
     private TextView tvcodigo,tvapellidos,tvfecha,tvhorasalida,tvminutosalida;
     private FirebaseFirestore firestore;
     private Switch noche;
+    ProgressDialog progressDialog;
+
 
 
 
@@ -68,10 +75,19 @@ public class Datosusuario extends AppCompatActivity {
         tvminutosalida.setFilters(filterArray);
     tvhorasalida.setFilters(new InputFilter[]{ new InputFilterMinMax("1","24") });
     tvminutosalida.setFilters(new InputFilter[]{ new InputFilterMinMax("0","59") });
+        //estableciendo vecha en edittext dd/mm/yyyy
         long date = System.currentTimeMillis();
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         String dateString = sdf.format(date);
         tvfecha.setText(dateString);
+        //obeteniendo numero de la semanna
+
+        Calendar calendar = new GregorianCalendar();
+        Date trialTime = new Date(dateString);
+        calendar.setTime(trialTime);
+        System.out.println("Week number:" +
+                calendar.get(Calendar.WEEK_OF_YEAR));
+
 
     btnlogout.setOnClickListener(new View.OnClickListener() {
         @Override
@@ -107,6 +123,11 @@ public class Datosusuario extends AppCompatActivity {
     btnguardarhora.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+            progressDialog=new ProgressDialog(Datosusuario.this);
+            progressDialog.setCancelable(false);
+            progressDialog.setMessage("Guardando salida");
+            progressDialog.show();
+
             String strhsalida=tvhorasalida.getText().toString();
             String strmsalida=tvminutosalida.getText().toString();
             String fechats=tvfecha.getText().toString();
@@ -123,6 +144,7 @@ public class Datosusuario extends AppCompatActivity {
 
             if (strhsalida.isEmpty() || strmsalida.isEmpty()){
                 Toast.makeText(Datosusuario.this, "Ingrese datos en horas y minutos", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
             }
             else{
                 if (fechats.length()==10){
@@ -170,11 +192,15 @@ public class Datosusuario extends AppCompatActivity {
                         public void onComplete(@NonNull Task<Void> task2) {
                             if (task2.isSuccessful()){
                                 Toast.makeText(Datosusuario.this, "Se guardo la hora de salida", Toast.LENGTH_SHORT).show();
+                                progressDialog.dismiss();
+
                             }
                             else
                             {
 
                                 Toast.makeText(Datosusuario.this,"No se pudo registrar la hora de salida", Toast.LENGTH_SHORT).show();
+                                progressDialog.dismiss();
+
                             }
                         }
                     });
@@ -182,6 +208,9 @@ public class Datosusuario extends AppCompatActivity {
                 else {
                     Toast.makeText(Datosusuario.this, "Ingrese formato de fecha dd/mm/aaaa", Toast.LENGTH_SHORT).show();
                     tvfecha.setError("Ingrese fecha válida");
+                    progressDialog.dismiss();
+
+
                 }
 
 
@@ -191,6 +220,8 @@ public class Datosusuario extends AppCompatActivity {
     });
 
         informaciondeusuario();
+        //enviando codigo a la otra actividad
+
     }
 
 
@@ -214,11 +245,14 @@ public class Datosusuario extends AppCompatActivity {
                     String nombrecompleto=apellidos+" "+nombres;
                     tvcodigo.setText(codigo);
                     tvapellidos.setText(nombrecompleto);
+
+
                 }
                 else{
                     Toast.makeText(Datosusuario.this, "El documento no existe", Toast.LENGTH_SHORT).show();
 
                 }
+
             }
         });
 

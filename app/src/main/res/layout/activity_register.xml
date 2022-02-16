@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".register">
 
     <ScrollView
-        android:layout_width="342dp"
-        android:layout_height="637dp"
+        android:layout_width="413dp"
+        android:layout_height="747dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -138,11 +138,11 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:clickable="true"
+                    android:focusable="true"
                     android:gravity="center|start"
                     android:text="@string/lv_login"
                     android:textColor="#00838F"
-                    tools:ignore="TouchTargetSizeCheck"
-                    android:focusable="true" />
+                    tools:ignore="TouchTargetSizeCheck" />
             </LinearLayout>
 
         </LinearLayout>

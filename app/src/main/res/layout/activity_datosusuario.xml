@@ -141,6 +141,7 @@
                     android:layout_weight="1"
                     android:hint="@string/cargando_horasextras"
                     tools:ignore="TextContrastCheck" />
+
             </LinearLayout>
 
             <TextView
@@ -159,7 +160,7 @@
 
                 <EditText
                     android:id="@+id/txt_fecha"
-                    android:layout_width="0dp"
+                    android:layout_width="253dp"
                     android:layout_height="58dp"
                     android:layout_gravity="center"
                     android:layout_weight="1"
@@ -170,6 +171,13 @@
                     android:inputType="date"
                     android:textAlignment="center"
                     tools:ignore="TextContrastCheck" />
+
+                <TextView
+                    android:id="@+id/tv_nsemana"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center" />
             </LinearLayout>
 
             <LinearLayout
