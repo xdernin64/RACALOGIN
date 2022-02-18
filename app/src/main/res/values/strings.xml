@@ -44,5 +44,6 @@
     <string name="cargandofecha">Cargando salidas...</string>
     <string name="cargandohorasextras">Cargando horas extras...</string>
     <string name="btn_salidsa">Mostrar salidas</string>
+    <string name="txobservaciones">Agrege sus observaciones...</string>
 
 </resources>

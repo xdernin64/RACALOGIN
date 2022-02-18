@@ -3,6 +3,7 @@ package com.apposmosis.racalogin;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -47,7 +48,7 @@ public class salidas extends AppCompatActivity {
 
         setContentView(R.layout.activity_salidas);
         progressDialog=new ProgressDialog(this);
-        progressDialog.setCancelable(false);
+        progressDialog.setCancelable(true);
         progressDialog.setMessage("Cargando salidas");
         progressDialog.show();
         mAuth=FirebaseAuth.getInstance();
@@ -62,11 +63,14 @@ public class salidas extends AppCompatActivity {
         miadaptador=new adaptadorsalidas(salidas.this,salidasArrayList);
         rcvsalidas.setAdapter(miadaptador);
 
+        ItemTouchHelper touchHelper=new ItemTouchHelper(new touchhelper(miadaptador));
+        touchHelper.attachToRecyclerView(rcvsalidas);
+
         EventChangeListener();
 
     }
 
-    private void EventChangeListener() {
+    public void EventChangeListener() {
         String id=mAuth.getCurrentUser().getUid();
         db.collection("salidas").whereEqualTo("uid",id).orderBy("fecha",Query.Direction.DESCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
@@ -74,22 +78,24 @@ public class salidas extends AppCompatActivity {
                 if (error!=null)
                 {
                     if (progressDialog.isShowing())
-                        progressDialog.dismiss();
                     Log.e("error firestore",error.getMessage());
                     return;
                 }
                 for (DocumentChange dc : value.getDocumentChanges()){
                     if (dc.getType()==DocumentChange.Type.ADDED){
                         salidasArrayList.add(dc.getDocument().toObject(model.class));
+                        miadaptador.notifyDataSetChanged();
+
                     }
 
-                    miadaptador.notifyDataSetChanged();
                     if (progressDialog.isShowing())
                         progressDialog.dismiss();
 
                 }
+                miadaptador.notifyDataSetChanged();
 
             }
+
         });
     }
 }

@@ -24,7 +24,7 @@
                 android:id="@+id/imageView"
                 android:layout_width="match_parent"
                 android:layout_height="224dp"
-                android:contentDescription="TODO"
+                android:contentDescription="Logodeagk"
                 app:srcCompat="@drawable/agklogo" />
 
             <TextView

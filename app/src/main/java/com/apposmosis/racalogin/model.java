@@ -1,6 +1,8 @@
 package com.apposmosis.racalogin;
 
 
+import android.widget.Button;
+
 import com.google.firebase.Timestamp;
 
 import java.text.DateFormat;
@@ -12,6 +14,11 @@ public class model {
       String codigo;
       String horadesalida;
       Double horasextra;
+
+
+
+        String docid;
+      Button elimnar;
 
       public model(){}
 
@@ -57,4 +64,15 @@ public class model {
         this.horasextra = horasextra;
 
     }
+
+    public String getDocid() {
+        return docid;
+    }
+
+    public void setDocid(String docid) {
+        this.docid = docid;
+    }
+
+
+
 }

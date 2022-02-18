@@ -49,5 +49,15 @@
             android:layout_margin="10dp"
             android:hint="@string/cargando_horasextras"
             tools:ignore="TextContrastCheck" />
+
+        <Button
+            android:id="@+id/btn_eliminar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#ED0000"
+            android:foregroundTint="#00897B"
+            android:text="ELIMINAR"
+            app:iconTint="#A85E5E" />
+
     </LinearLayout>
 </androidx.cardview.widget.CardView>

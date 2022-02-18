@@ -2,11 +2,7 @@ package com.apposmosis.racalogin;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.icu.util.Calendar;
 import android.icu.util.GregorianCalendar;
@@ -14,30 +10,25 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 
 public class Datosusuario extends AppCompatActivity {
@@ -181,27 +172,33 @@ public class Datosusuario extends AppCompatActivity {
                     Map<String, Object> map= new HashMap<>();
 
                     String id=mAuth.getCurrentUser().getUid();
+                    String docid= UUID.randomUUID().toString();
 
                     map.put("codigo",codigotxt);
                     map.put("fecha",fechatedate);
                     map.put("horadesalida",horasalida);
                     map.put("horasextra",tiempoextra);
                     map.put("uid",id);
-                    firestore.collection("salidas").document().set(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    map.put("docid",docid);
+
+
+
+
+                    firestore.collection("salidas").document(docid).set(map).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task2) {
                             if (task2.isSuccessful()){
+
                                 Toast.makeText(Datosusuario.this, "Se guardo la hora de salida", Toast.LENGTH_SHORT).show();
-                                progressDialog.dismiss();
 
                             }
                             else
                             {
 
                                 Toast.makeText(Datosusuario.this,"No se pudo registrar la hora de salida", Toast.LENGTH_SHORT).show();
-                                progressDialog.dismiss();
 
                             }
+                            progressDialog.dismiss();
                         }
                     });
                 }
