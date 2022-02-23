@@ -77,6 +77,7 @@ public class login extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
+
                     startActivity(new Intent(login.this,Datosusuario.class));
                     finish();
                 }

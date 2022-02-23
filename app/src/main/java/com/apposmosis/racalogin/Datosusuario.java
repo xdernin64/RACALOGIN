@@ -1,11 +1,14 @@
 package com.apposmosis.racalogin;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.SumPathEffect;
 import android.icu.util.Calendar;
 import android.icu.util.GregorianCalendar;
+import android.opengl.Matrix;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.InputFilter;
@@ -19,12 +22,19 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -38,10 +48,6 @@ public class Datosusuario extends AppCompatActivity {
     private FirebaseFirestore firestore;
     private Switch noche;
     ProgressDialog progressDialog;
-
-
-
-
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -60,6 +66,11 @@ public class Datosusuario extends AppCompatActivity {
     tvminutosalida=findViewById(R.id.txt_minutosalida);
     btnmostrarsalidas=findViewById(R.id.btn_mostrarsalidas);
     noche=findViewById(R.id.switch_noche);
+
+
+
+
+
         InputFilter[] filterArray = new InputFilter[1];
         filterArray[0] = new InputFilter.LengthFilter(2);
         tvhorasalida.setFilters(filterArray);
@@ -72,15 +83,15 @@ public class Datosusuario extends AppCompatActivity {
         String dateString = sdf.format(date);
         tvfecha.setText(dateString);
         //obeteniendo numero de la semanna
-
         Calendar calendar = new GregorianCalendar();
         Date trialTime = new Date(dateString);
         calendar.setTime(trialTime);
-        System.out.println("Week number:" +
-                calendar.get(Calendar.WEEK_OF_YEAR));
+        Integer numerosemana=calendar.get(Calendar.WEEK_OF_YEAR);
 
 
-    btnlogout.setOnClickListener(new View.OnClickListener() {
+
+
+        btnlogout.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             mAuth.signOut();
@@ -119,6 +130,7 @@ public class Datosusuario extends AppCompatActivity {
             progressDialog.setMessage("Guardando salida");
             progressDialog.show();
 
+
             String strhsalida=tvhorasalida.getText().toString();
             String strmsalida=tvminutosalida.getText().toString();
             String fechats=tvfecha.getText().toString();
@@ -144,13 +156,12 @@ public class Datosusuario extends AppCompatActivity {
                     String codigotxt=tvcodigo.getText().toString();
                     String horasalida= tvhorasalida.getText().toString()+":"+tvminutosalida.getText().toString();
                     DecimalFormat df = new DecimalFormat("###.##");
-
                     Double input=((horas+(minutos/60))-14.75);
                     //Date fechatedate= new Date(fechats,"dd/mm/yy");
                     BigDecimal bd = new BigDecimal(input).setScale(2, RoundingMode.HALF_UP);
                     double tiempoextra = bd.doubleValue();
 
-                    if (tiempoextra>1){
+                    if (tiempoextra>=1){
                         tiempoextra=tiempoextra+0;
                     }
                     else {
@@ -169,6 +180,12 @@ public class Datosusuario extends AppCompatActivity {
 
                     }
 
+                    Calendar calendario = Calendar.getInstance();
+                calendar.setFirstDayOfWeek( Calendar.MONDAY);
+                calendar.setMinimalDaysInFirstWeek(2);
+                calendar.setTime(fechatedate);
+                int numberWeekOfYear = calendar.get(Calendar.WEEK_OF_YEAR);
+
                     Map<String, Object> map= new HashMap<>();
 
                     String id=mAuth.getCurrentUser().getUid();
@@ -180,6 +197,7 @@ public class Datosusuario extends AppCompatActivity {
                     map.put("horasextra",tiempoextra);
                     map.put("uid",id);
                     map.put("docid",docid);
+                    map.put("semana",numberWeekOfYear);
 
 
 
@@ -217,9 +235,8 @@ public class Datosusuario extends AppCompatActivity {
     });
 
         informaciondeusuario();
-        //enviando codigo a la otra actividad
-
     }
+
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -243,6 +260,12 @@ public class Datosusuario extends AppCompatActivity {
                     tvcodigo.setText(codigo);
                     tvapellidos.setText(nombrecompleto);
 
+                    firestore.collection("salidas").whereEqualTo("uid",id ).whereEqualTo("semana",9);
+                    firestore.collection("restaurants").whereEqualTo("uid",id )
+                            .whereEqualTo("semana",9)
+                            .get();
+
+
 
                 }
                 else{
@@ -254,5 +277,6 @@ public class Datosusuario extends AppCompatActivity {
         });
 
     }
+
 
 }

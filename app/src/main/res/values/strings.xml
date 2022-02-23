@@ -40,10 +40,16 @@
     <string name="separadorhoras">:</string>
     <string name="asciiconfirmacion">✚</string>
     <string name="turnonoche">NOCHE</string>
-    <string name="formatofechahint">dd:mm:aaaa</string>
+    <string name="formatofechahint">dd/mm/aaaa</string>
     <string name="cargandofecha">Cargando salidas...</string>
     <string name="cargandohorasextras">Cargando horas extras...</string>
     <string name="btn_salidsa">Mostrar salidas</string>
     <string name="txobservaciones">Agrege sus observaciones...</string>
+    <string name="semana">SEMANA:</string>
+    <string name="n_semana">Nº Semana</string>
+    <string name="iconocbuscar">🔍</string>
+    <string name="string_iconocbuscar">🔍</string>
+    <string name="horas_semanales">Horas Semanales</string>
+    <string name="eliminar">ELIMINAR</string>
 
 </resources>

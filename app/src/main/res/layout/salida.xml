@@ -4,60 +4,120 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_margin="10dp"
     app:cardElevation="8dp"
-    android:layout_margin="13dp"
-    >
+    app:layout_anchorGravity="center">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="20dp"
-        android:textAlignment="center">
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/tvshow_fecha"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:hint="@string/cargandofecha"
-            android:textAlignment="center"
-            android:textSize="18dp"
-            android:textStyle="bold"
-            tools:ignore="TextContrastCheck" />
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="5dp"
+            android:textAlignment="center">
 
-        <TextView
-            android:id="@+id/tvshow_codigo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:hint="@string/cargandonombres"
-            tools:ignore="TextContrastCheck" />
+            <TextView
+                android:id="@+id/tvshow_fecha"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/cargandofecha"
+                android:textAlignment="center"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                tools:ignore="TextContrastCheck" />
 
-        <TextView
-            android:id="@+id/tvshow_salida"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:hint="@string/cargandohorasextras"
-            tools:ignore="TextContrastCheck" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/tvshow_horasextras"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:hint="@string/cargando_horasextras"
-            tools:ignore="TextContrastCheck" />
+                <LinearLayout
+                    android:layout_width="70dp"
+                    android:layout_height="118dp"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
-        <Button
-            android:id="@+id/btn_eliminar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#ED0000"
-            android:foregroundTint="#00897B"
-            android:text="ELIMINAR"
-            app:iconTint="#A85E5E" />
+                    <TextView
+                        android:id="@+id/textView10"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:text="Codigo:"
+                        android:textColor="#000000" />
 
+                    <TextView
+                        android:id="@+id/textView12"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:text="H. Extras:"
+                        android:textColor="#000000" />
+
+                    <TextView
+                        android:id="@+id/textView13"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:text="H. Salida:"
+                        android:textColor="#000000" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvshow_codigo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:hint="@string/cargandonombres"
+                        tools:ignore="TextContrastCheck" />
+
+                    <TextView
+                        android:id="@+id/tvshow_salida"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:hint="@string/cargandohorasextras"
+                        tools:ignore="TextContrastCheck" />
+
+                    <TextView
+                        android:id="@+id/tvshow_horasextras"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:hint="@string/cargando_horasextras"
+                        tools:ignore="TextContrastCheck" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_eliminar"
+                android:layout_width="237dp"
+                android:layout_height="61dp"
+                android:backgroundTint="#ED0000"
+                android:foregroundTint="#00897B"
+                android:minHeight="48dp"
+                android:text="@string/eliminar"
+                app:iconTint="#A85E5E" />
+
+        </LinearLayout>
     </LinearLayout>
+
 </androidx.cardview.widget.CardView>

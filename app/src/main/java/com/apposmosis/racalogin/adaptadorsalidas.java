@@ -1,9 +1,8 @@
 package com.apposmosis.racalogin;
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +10,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,15 +17,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.progressindicator.BaseProgressIndicator;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -36,6 +30,8 @@ public class adaptadorsalidas extends RecyclerView.Adapter<adaptadorsalidas.MyVi
     ArrayList<model> salidasArrayList;
     FirebaseFirestore firestore;
     salidas actsalidas;
+    Double totalhorasextras;
+
      private FirebaseFirestore db=FirebaseFirestore.getInstance();
 
     public  adaptadorsalidas(Context context,ArrayList<model> salidasArrayList){
@@ -71,6 +67,7 @@ public class adaptadorsalidas extends RecyclerView.Adapter<adaptadorsalidas.MyVi
     public adaptadorsalidas.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(context).inflate(R.layout.salida , parent , false);
         return new MyViewHolder(v);
+
     }
 
     private void notifyRemoved(int position){
@@ -97,6 +94,33 @@ public class adaptadorsalidas extends RecyclerView.Adapter<adaptadorsalidas.MyVi
     holder.tvhsalida.setText(modelo.horadesalida);
     holder.tvhextras.setText(String.valueOf(modelo.horasextra));
 
+        Double price = Double.parseDouble(String.valueOf(salidasArrayList.get(position).getHorasextra()));
+        int count = getItemCount();
+
+
+        for (int i = 0; i < count; i++){
+            Double tsum=0.00;
+            tsum = tsum + price;
+            Log.d("total pay : ", String.valueOf(tsum));
+        }
+        //Intent i = new Intent(context, salidas.class);
+        //i.putExtra("KEY",tsum);
+
+
+        //holder.txthorasemanales.setText(String.valueOf(tsum));
+
+        //holder.tvcodigo.setText(String.valueOf(tsum));
+
+       /* totalhorasextras=totalhorasextras+(modelo.horasextra);
+
+            holder.tvcodigo.setText(totalhorasextras.toString());*/
+
+
+
+
+
+
+
     holder.btneliminar.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -122,14 +146,22 @@ public class adaptadorsalidas extends RecyclerView.Adapter<adaptadorsalidas.MyVi
 
 
     }
+    public int grandTotal(ArrayList<model> items){
+
+        int totalPrice = 0;
+        for(int i = 0 ; i < items.size(); i++) {
+            totalPrice += items.get(i).getHorasextra();
+        }
+        return totalPrice;
+
+    }
 
     @Override
     public int getItemCount() {
         return salidasArrayList.size();
     }
-
     public static class MyViewHolder extends RecyclerView.ViewHolder{
-        TextView tvfecha,tvcodigo,tvhsalida,tvhextras;
+        TextView tvfecha,tvcodigo,tvhsalida,tvhextras,txthorasemanales;
         Button btneliminar;
         String uid;
         public MyViewHolder(@NonNull View itemView) {
@@ -139,6 +171,7 @@ public class adaptadorsalidas extends RecyclerView.Adapter<adaptadorsalidas.MyVi
             tvhsalida=itemView.findViewById(R.id.tvshow_salida);
             tvhextras=itemView.findViewById(R.id.tvshow_horasextras);
             btneliminar=itemView.findViewById(R.id.btn_eliminar);
+            txthorasemanales=itemView.findViewById(R.id.txt_fechamax);
         }
     }
 }
