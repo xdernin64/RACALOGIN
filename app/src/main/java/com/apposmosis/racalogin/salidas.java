@@ -168,7 +168,7 @@ public class salidas extends AppCompatActivity {
         String id=mAuth.getCurrentUser().getUid();
         miadaptador.notifyDataSetChanged();
         // db.collection("salidas").whereEqualTo("uid",id).whereEqualTo("semana",semana).orderBy("fecha",Query.Direction.DESCENDING)
-        db.collection("salidas").whereEqualTo("uid",id).whereGreaterThanOrEqualTo("fecha",diaminimo).whereLessThanOrEqualTo("fecha",diamaximo).orderBy("fecha",Query.Direction.DESCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
+        db.collection("salidas").whereGreaterThanOrEqualTo("fecha",diaminimo).whereLessThanOrEqualTo("fecha",diamaximo).orderBy("fecha",Query.Direction.DESCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 if (error!=null)

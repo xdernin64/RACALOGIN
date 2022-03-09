@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_margin="15dp"
+    app:cardBackgroundColor="#FBFBFB"
+    app:cardElevation="8dp"
+    app:layout_anchorGravity="center">
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="399dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="5dp">
+
+        <LinearLayout
+            android:layout_width="290dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <EditText
+                android:id="@+id/txt_fechausr"
+                android:layout_width="282dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#43A047"
+                android:ems="10"
+                android:foregroundTint="#320B0B"
+                android:gravity="center"
+                android:hapticFeedbackEnabled="false"
+                android:hint="@string/formatofechahint"
+                android:importantForAutofill="no"
+                android:inputType="date"
+                android:minHeight="48dp"
+                android:textColor="#43A047"
+                android:textColorHint="#43A047"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/txt_codigousr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/cargandocodigo"
+                android:importantForAutofill="no"
+                android:inputType="number"
+                android:minHeight="48dp"
+                tools:ignore="TextContrastCheck" />
+
+            <EditText
+                android:id="@+id/txt_datosusr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/cargandonombres"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName"
+                android:minHeight="48dp"
+                tools:ignore="TextContrastCheck" />
+
+            <EditText
+                android:id="@+id/tv_horasalida"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/cargando_horasextras"
+                android:importantForAutofill="no"
+                android:inputType="number"
+                android:minHeight="48dp"
+                tools:ignore="TextContrastCheck" />
+
+            <EditText
+                android:id="@+id/tv_extras"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Ingresar horas extras"
+                android:importantForAutofill="no"
+                android:inputType="number"
+                android:minHeight="48dp"
+                tools:ignore="TextContrastCheck" />
+
+            <EditText
+                android:id="@+id/tv_observaciones"
+                android:layout_width="match_parent"
+                android:layout_height="133dp"
+                android:ems="10"
+                android:gravity="start|top"
+                android:hint="@string/txobservaciones"
+                android:importantForAutofill="no"
+                android:inputType="textMultiLine"
+                tools:ignore="SpeakableTextPresentCheck,TextContrastCheck" />
+        </LinearLayout>
+
+        <CheckBox
+            android:id="@+id/chb_add"
+            style="@android:style/Widget.DeviceDefault.Light.CompoundButton.CheckBox"
+            android:layout_width="54dp"
+            android:layout_height="209dp"
+            android:layout_weight="1"
+            android:backgroundTint="#00897B"
+            android:buttonTint="#43A047"
+            android:elegantTextHeight="true"
+            android:ellipsize="start"
+            android:focusable="auto"
+            android:freezesText="true"
+            android:minWidth="48dp"
+            android:scrollbarSize="10dp"
+            android:text=" add"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColorLink="#43A047"
+            android:textIsSelectable="false"
+            android:textSize="1sp"
+            android:textStyle="bold"
+            app:useMaterialThemeColors="true"
+            tools:text="add" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
