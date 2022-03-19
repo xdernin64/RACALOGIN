@@ -14,7 +14,7 @@
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="399dp"
+        android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="horizontal"
         android:padding="5dp">
@@ -24,6 +24,72 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:padding="10dp">
+
+            <EditText
+                android:id="@+id/txt_codigousr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/cargandocodigo"
+                android:importantForAutofill="no"
+                android:inputType="number"
+                android:minHeight="48dp"
+                android:textColor="#00897B"
+                android:textStyle="bold"
+                tools:ignore="TextContrastCheck" />
+
+            <EditText
+                android:id="@+id/txt_datosusr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/cargandonombres"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName"
+                android:minHeight="48dp"
+                tools:ignore="TextContrastCheck" />
+
+            <TextView
+                android:id="@+id/tv_cargo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/cargandocodigo" />
+
+            <EditText
+                android:id="@+id/tv_horasalida"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/cargando_horasextras"
+                android:importantForAutofill="no"
+                android:inputType="number"
+                android:minHeight="48dp"
+                android:visibility="invisible"
+                tools:ignore="TextContrastCheck" />
+
+            <EditText
+                android:id="@+id/tv_extras"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Ingresar horas extras"
+                android:importantForAutofill="no"
+                android:inputType="number"
+                android:minHeight="48dp"
+                android:visibility="invisible"
+                tools:ignore="TextContrastCheck" />
+
+            <EditText
+                android:id="@+id/tv_observaciones"
+                android:layout_width="match_parent"
+                android:layout_height="133dp"
+                android:ems="10"
+                android:gravity="start|top"
+                android:hint="@string/txobservaciones"
+                android:importantForAutofill="no"
+                android:inputType="textMultiLine"
+                android:visibility="invisible"
+                tools:ignore="SpeakableTextPresentCheck,TextContrastCheck" />
 
             <EditText
                 android:id="@+id/txt_fechausr"
@@ -41,62 +107,8 @@
                 android:textColor="#43A047"
                 android:textColorHint="#43A047"
                 android:textSize="30sp"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/txt_codigousr"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="@string/cargandocodigo"
-                android:importantForAutofill="no"
-                android:inputType="number"
-                android:minHeight="48dp"
-                tools:ignore="TextContrastCheck" />
-
-            <EditText
-                android:id="@+id/txt_datosusr"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="@string/cargandonombres"
-                android:importantForAutofill="no"
-                android:inputType="textPersonName"
-                android:minHeight="48dp"
-                tools:ignore="TextContrastCheck" />
-
-            <EditText
-                android:id="@+id/tv_horasalida"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="@string/cargando_horasextras"
-                android:importantForAutofill="no"
-                android:inputType="number"
-                android:minHeight="48dp"
-                tools:ignore="TextContrastCheck" />
-
-            <EditText
-                android:id="@+id/tv_extras"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Ingresar horas extras"
-                android:importantForAutofill="no"
-                android:inputType="number"
-                android:minHeight="48dp"
-                tools:ignore="TextContrastCheck" />
-
-            <EditText
-                android:id="@+id/tv_observaciones"
-                android:layout_width="match_parent"
-                android:layout_height="133dp"
-                android:ems="10"
-                android:gravity="start|top"
-                android:hint="@string/txobservaciones"
-                android:importantForAutofill="no"
-                android:inputType="textMultiLine"
-                tools:ignore="SpeakableTextPresentCheck,TextContrastCheck" />
+                android:textStyle="bold"
+                android:visibility="invisible" />
         </LinearLayout>
 
         <CheckBox
@@ -121,6 +133,7 @@
             android:textIsSelectable="false"
             android:textSize="1sp"
             android:textStyle="bold"
+            android:visibility="invisible"
             app:useMaterialThemeColors="true"
             tools:text="add" />
 

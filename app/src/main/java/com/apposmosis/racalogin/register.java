@@ -5,12 +5,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -18,8 +23,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,6 +35,9 @@ public class register extends AppCompatActivity {
     private EditText codigo,nombres,apellidos,celular,correo,contrasena;
     public Button btnregistrar;
     public TextView iralogin;
+    public Spinner spnarea,spnlabor;
+    private QuerySnapshot Areas;
+
 
     //datos a registrar
     private String codigotext="";
@@ -35,6 +46,12 @@ public class register extends AppCompatActivity {
     private String celulartext="";
     private String correotext="";
     private String contrasenatext="";
+    private String area;
+    private String labor;
+    private ArrayList<String> optiosarea;
+    private ArrayList<String> optiosntrabajo;
+    private ArrayAdapter<String> adaptera;
+    private ArrayAdapter<String> adapterl;
 
     FirebaseAuth mAuth;
     DatabaseReference mDatabase;
@@ -46,11 +63,11 @@ public class register extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-
+        //firebase
         mAuth = FirebaseAuth.getInstance();
         mDatabase=FirebaseDatabase.getInstance().getReference();
         mFirestore=FirebaseFirestore.getInstance();
-
+        //campos
         codigo=(EditText) findViewById(R.id.txt_email);
         nombres=(EditText)findViewById(R.id.txt_nombres);
         apellidos=(EditText)findViewById(R.id.txt_apellidos);
@@ -58,11 +75,31 @@ public class register extends AppCompatActivity {
         correo=(EditText)findViewById(R.id.txt_correo);
         contrasena=(EditText)findViewById(R.id.txt_pwd);
 
+        //botones
         btnregistrar=findViewById(R.id.btn_register);
         iralogin=findViewById(R.id.tv_iralogin);
+        spnarea=findViewById(R.id.spn_area);
+        spnlabor=findViewById(R.id.spn_labor);
 
 
         //datos a registrar
+        optiosarea=new ArrayList<>();
+        optiosntrabajo=new ArrayList<>();
+        adaptera=new ArrayAdapter<>(getApplicationContext(),R.layout.support_simple_spinner_dropdown_item);
+        adaptera.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        spnarea.setAdapter(adaptera);
+        spnarea.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int i, long l) {
+                Toast.makeText(getApplicationContext(), adaptera.getItem(i), Toast.LENGTH_SHORT).show();
+                Log.e("Id ", String.valueOf(Areas.getDocuments().get(i)));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         btnregistrar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,6 +111,8 @@ public class register extends AppCompatActivity {
                 correotext=correo.getText().toString();
                 contrasenatext=contrasena.getText().toString();
 
+
+                cargarspinner();
                 if(codigotext.isEmpty() || nombrestext.isEmpty() || apellidostext.isEmpty()
                  || celulartext.isEmpty() || contrasenatext.isEmpty() || correotext.isEmpty()){
                     Toast.makeText(register.this, "Ingrese datos en todos los campos", Toast.LENGTH_SHORT).show();
@@ -81,34 +120,11 @@ public class register extends AppCompatActivity {
                 else{
                     registrarauth();
 
-                  /*  databaseReference.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            if (snapshot.hasChild(codigotext)){
-                                Toast.makeText(register.this, "El codigo ya ha sido registrado", Toast.LENGTH_SHORT).show();
-                            }
-                            else {
-                                databaseReference.child("Usuarios").child(codigotext).child("Apellidos").setValue(apellidostext);
-                                databaseReference.child("Usuarios").child(codigotext).child("Nombres").setValue(nombrestext);
-                                databaseReference.child("Usuarios").child(codigotext).child("Celular").setValue(celulartext);
-                                databaseReference.child("Usuarios").child(codigotext).child("Password").setValue(contrasenatext);
-                                databaseReference.child("Usuarios").child(codigotext).child("Correo").setValue(correotext);
-                                Toast.makeText(register.this, "El usuario se ha registrado correctamente", Toast.LENGTH_SHORT).show();
-
-                                registrarauth();
-
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-
-                    });*/
 
                 }
             }
+
+
         });
         iralogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,6 +133,30 @@ public class register extends AppCompatActivity {
             }
         });
 
+    }
+    private void cargarspinner() {
+        mFirestore.collection("Areas").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                Areas=queryDocumentSnapshots;
+                if (queryDocumentSnapshots.size()>0)
+                {
+
+                    for (DocumentSnapshot doc:queryDocumentSnapshots){
+                        optiosarea.add(doc.getString("Nombre"));
+                    }
+                }
+                else
+                    Toast.makeText(getApplicationContext(), "Datos encontrados", Toast.LENGTH_SHORT).show();
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
 
     private void registrarauth() {
@@ -127,10 +167,11 @@ public class register extends AppCompatActivity {
                     Map<String, Object> map= new HashMap<>();
 
                     String id=mAuth.getCurrentUser().getUid();
+                    String nombresyapellidos=apellidostext+" "+nombrestext;
+
 
                     map.put("codigo",codigotext);
-                    map.put("apellidos",apellidostext);
-                    map.put("nombres",nombrestext);
+                    map.put("Nombres y apellidos",nombresyapellidos);
                     map.put("celular",celulartext);
                     map.put("correo",correotext);
                     map.put("password",contrasenatext);

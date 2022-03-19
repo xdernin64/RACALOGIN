@@ -108,6 +108,22 @@
                 android:minHeight="48dp"
                 tools:ignore="TextContrastCheck,TextContrastCheck" />
 
+            <Spinner
+                android:id="@+id/spn_area"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:entries="@android:array/phoneTypes"
+                android:minHeight="48dp" />
+
+            <Spinner
+                android:id="@+id/spn_labor"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:entries="@android:array/imProtocols"
+                android:minHeight="48dp" />
+
             <Button
                 android:id="@+id/btn_register"
                 android:layout_width="match_parent"

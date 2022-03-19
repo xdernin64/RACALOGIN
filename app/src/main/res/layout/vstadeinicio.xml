@@ -81,7 +81,7 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/lyt_horasextra"
+                android:id="@+id/lyt_horasextradf"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
@@ -119,7 +119,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/lyt_htotal"
+                android:id="@+id/lyt_htotaldf"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
@@ -142,7 +142,7 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/textView6"
+                android:id="@+id/textView6df"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"

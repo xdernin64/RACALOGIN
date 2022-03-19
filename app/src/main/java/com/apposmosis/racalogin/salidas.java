@@ -12,6 +12,7 @@ import android.icu.util.Calendar;
 import android.icu.util.GregorianCalendar;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -156,6 +157,7 @@ public class salidas extends AppCompatActivity {
                 //Timestamp maxts=new Timestamp(fechafin);
 
 
+
                EventChangeListener(finit,fend);
 
             }
@@ -168,7 +170,7 @@ public class salidas extends AppCompatActivity {
         String id=mAuth.getCurrentUser().getUid();
         miadaptador.notifyDataSetChanged();
         // db.collection("salidas").whereEqualTo("uid",id).whereEqualTo("semana",semana).orderBy("fecha",Query.Direction.DESCENDING)
-        db.collection("salidas").whereGreaterThanOrEqualTo("fecha",diaminimo).whereLessThanOrEqualTo("fecha",diamaximo).orderBy("fecha",Query.Direction.DESCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
+        db.collection("salidas").whereGreaterThanOrEqualTo("fecha",diaminimo).whereLessThanOrEqualTo("fecha",diamaximo).orderBy("fecha", Query.Direction.DESCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 if (error!=null)
