@@ -22,13 +22,16 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class register extends AppCompatActivity {
@@ -37,6 +40,7 @@ public class register extends AppCompatActivity {
     public TextView iralogin;
     public Spinner spnarea,spnlabor;
     private QuerySnapshot Areas;
+
 
 
     //datos a registrar
@@ -48,9 +52,8 @@ public class register extends AppCompatActivity {
     private String contrasenatext="";
     private String area;
     private String labor;
-    private ArrayList<String> optiosarea;
+
     private ArrayList<String> optiosntrabajo;
-    private ArrayAdapter<String> adaptera;
     private ArrayAdapter<String> adapterl;
 
     FirebaseAuth mAuth;
@@ -67,6 +70,7 @@ public class register extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mDatabase=FirebaseDatabase.getInstance().getReference();
         mFirestore=FirebaseFirestore.getInstance();
+
         //campos
         codigo=(EditText) findViewById(R.id.txt_email);
         nombres=(EditText)findViewById(R.id.txt_nombres);
@@ -82,17 +86,51 @@ public class register extends AppCompatActivity {
         spnlabor=findViewById(R.id.spn_labor);
 
 
-        //datos a registrar
-        optiosarea=new ArrayList<>();
-        optiosntrabajo=new ArrayList<>();
-        adaptera=new ArrayAdapter<>(getApplicationContext(),R.layout.support_simple_spinner_dropdown_item);
-        adaptera.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-        spnarea.setAdapter(adaptera);
+        //llenando spinner
+        FirebaseFirestore rootRef = FirebaseFirestore.getInstance();
+        CollectionReference Areasref = rootRef.collection("Areas");
+        List<String> subjects = new ArrayList<>();
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, subjects);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spnarea.setAdapter(adapter);
+        List<String> docid = new ArrayList<>();
+        Areasref.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        String idarea =document.getId();
+                        String subject = document.getString("Nombre");
+                        //subspinner
+
+                        subjects.add(subject);
+                        docid.add(idarea);
+                    }
+                    adapter.notifyDataSetChanged();
+
+                }
+
+            }
+
+
+
+        });
+
         spnarea.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int i, long l) {
-                Toast.makeText(getApplicationContext(), adaptera.getItem(i), Toast.LENGTH_SHORT).show();
-                Log.e("Id ", String.valueOf(Areas.getDocuments().get(i)));
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String area=spnarea.getSelectedItem().toString();
+                String iddoccumento;
+                int arreglosz=subjects.size();
+                for (int i=0;arreglosz>i;i++)
+                {
+                    if (subjects.get(i) == area)
+                    {
+
+                        String docid=String.valueOf(i+1);
+                        cargarsubspinner(docid);
+                    }
+                }
             }
 
             @Override
@@ -100,6 +138,31 @@ public class register extends AppCompatActivity {
 
             }
         });
+
+
+
+
+
+
+
+        //datos a registrar
+//        optiosarea=new ArrayList<>();
+//        optiosntrabajo=new ArrayList<>();
+//        adaptera=new ArrayAdapter<>(getApplicationContext(),R.layout.support_simple_spinner_dropdown_item);
+//        adaptera.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+//        spnarea.setAdapter(adaptera);
+//        spnarea.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int i, long l) {
+//                Toast.makeText(getApplicationContext(), adaptera.getItem(i), Toast.LENGTH_SHORT).show();
+//                Log.e("Id ", String.valueOf(Areas.getDocuments().get(i)));
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
 
         btnregistrar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,7 +175,7 @@ public class register extends AppCompatActivity {
                 contrasenatext=contrasena.getText().toString();
 
 
-                cargarspinner();
+//                cargarspinner();
                 if(codigotext.isEmpty() || nombrestext.isEmpty() || apellidostext.isEmpty()
                  || celulartext.isEmpty() || contrasenatext.isEmpty() || correotext.isEmpty()){
                     Toast.makeText(register.this, "Ingrese datos en todos los campos", Toast.LENGTH_SHORT).show();
@@ -134,30 +197,51 @@ public class register extends AppCompatActivity {
         });
 
     }
-    private void cargarspinner() {
-        mFirestore.collection("Areas").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                Areas=queryDocumentSnapshots;
-                if (queryDocumentSnapshots.size()>0)
-                {
+//    private void cargarspinner() {
+//        mFirestore.collection("Areas").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+//            @Override
+//            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+//                Areas=queryDocumentSnapshots;
+//                if (queryDocumentSnapshots.size()>0)
+//                {
+//
+//                    for (DocumentSnapshot doc:queryDocumentSnapshots){
+//                        optiosarea.add(doc.getString("Nombre"));
+//                    }
+//                }
+//                else
+//                    Toast.makeText(getApplicationContext(), "Datos encontrados", Toast.LENGTH_SHORT).show();
+//
+//            }
+//        }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception e) {
+//                Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+//
+//            }
+//        });
+//    }
+private void cargarsubspinner(String idarea) {
 
-                    for (DocumentSnapshot doc:queryDocumentSnapshots){
-                        optiosarea.add(doc.getString("Nombre"));
-                    }
+    CollectionReference Laborref = mFirestore.collection("Areas").document(idarea).collection("trabajos");
+    List<String> Labor = new ArrayList<>();
+    ArrayAdapter<String> Adapaterlabor = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, Labor);
+    Adapaterlabor.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+    spnlabor.setAdapter(Adapaterlabor);
+    Laborref.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        @Override
+        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    String subjectlabor = document.getString("Nombre");
+                    Labor.add(subjectlabor);
+
                 }
-                else
-                    Toast.makeText(getApplicationContext(), "Datos encontrados", Toast.LENGTH_SHORT).show();
-
+                Adapaterlabor.notifyDataSetChanged();
             }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-
-            }
-        });
-    }
+        }
+    });
+}
 
     private void registrarauth() {
         mAuth.createUserWithEmailAndPassword(correotext,contrasenatext).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
