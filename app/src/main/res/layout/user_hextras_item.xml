@@ -25,29 +25,17 @@
             android:orientation="vertical"
             android:padding="10dp">
 
-            <EditText
+            <TextView
                 android:id="@+id/txt_codigousr"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="@string/cargandocodigo"
-                android:importantForAutofill="no"
-                android:inputType="number"
-                android:minHeight="48dp"
-                android:textColor="#00897B"
-                android:textStyle="bold"
-                tools:ignore="TextContrastCheck" />
+                android:hint="@string/cargandocodigo" />
 
-            <EditText
+            <TextView
                 android:id="@+id/txt_datosusr"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="@string/cargandonombres"
-                android:importantForAutofill="no"
-                android:inputType="textPersonName"
-                android:minHeight="48dp"
-                tools:ignore="TextContrastCheck" />
+                android:text="TextView" />
 
             <TextView
                 android:id="@+id/tv_cargo"

@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.view.menu.MenuView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -161,7 +162,7 @@ public class adaptadorsalidas extends RecyclerView.Adapter<adaptadorsalidas.MyVi
         return salidasArrayList.size();
     }
     public static class MyViewHolder extends RecyclerView.ViewHolder{
-        TextView tvfecha,tvcodigo,tvhsalida,tvhextras,txthorasemanales;
+        TextView tvfecha,tvcodigo,tvhsalida,tvhextras,txthorasemanales,tvdatos,tvobserva;
         Button btneliminar;
         String uid;
         public MyViewHolder(@NonNull View itemView) {
@@ -172,6 +173,8 @@ public class adaptadorsalidas extends RecyclerView.Adapter<adaptadorsalidas.MyVi
             tvhextras=itemView.findViewById(R.id.tvshow_horasextras);
             btneliminar=itemView.findViewById(R.id.btn_eliminar);
             txthorasemanales=itemView.findViewById(R.id.txt_fechamax);
+            tvdatos=itemView.findViewById(R.id.txt_datos);
+            tvobserva=itemView.findViewById(R.id.tv_observaciones);
         }
     }
 }

@@ -14,6 +14,8 @@ public class model {
       String codigo;
       String horadesalida;
       Double horasextra;
+      String observacion, Apellidosynombres;
+      String Labor;
 
 
 
@@ -22,7 +24,19 @@ public class model {
 
       public model(){}
 
-    public model(Timestamp fecha, String codigo,String horadesalida,Double horasextra){
+    public model(Timestamp fecha, String codigo, String horadesalida, Double horasextra, String observacion, String apellidosynombres, String labor, String docid, Button elimnar) {
+        this.fecha = fecha;
+        this.codigo = codigo;
+        this.horadesalida = horadesalida;
+        this.horasextra = horasextra;
+        this.observacion = observacion;
+        Apellidosynombres = apellidosynombres;
+        Labor = labor;
+        this.docid = docid;
+        this.elimnar = elimnar;
+    }
+
+    public model(Timestamp fecha, String codigo, String horadesalida, Double horasextra){
         this.fecha=fecha;
         this.codigo=codigo;
         this.horadesalida=horadesalida;
@@ -73,6 +87,35 @@ public class model {
         this.docid = docid;
     }
 
+    public String getObservacion() {
+        return observacion;
+    }
 
+    public void setObservacion(String observacion) {
+        this.observacion = observacion;
+    }
 
+    public String getApellidosynombres() {
+        return Apellidosynombres;
+    }
+
+    public void setApellidosynombres(String apellidosynombres) {
+        Apellidosynombres = apellidosynombres;
+    }
+
+    public String getLabor() {
+        return Labor;
+    }
+
+    public void setLabor(String labor) {
+        Labor = labor;
+    }
+
+    public Button getElimnar() {
+        return elimnar;
+    }
+
+    public void setElimnar(Button elimnar) {
+        this.elimnar = elimnar;
+    }
 }

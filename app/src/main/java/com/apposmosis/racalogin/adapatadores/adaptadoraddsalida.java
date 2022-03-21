@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -71,7 +72,8 @@ public class adaptadoraddsalida extends RecyclerView.Adapter<adaptadoraddsalida.
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-        EditText txtfecha,txtcodigo,txtdatos,txthosrasalida,txthorasextras,txtobservacion;
+        EditText txtfecha,txthosrasalida,txthorasextras,txtobservacion;
+        TextView  txtcodigo,txtdatos    ;
         CheckBox estado;
         String nombres,apellidos;
         public MyViewHolder(@NonNull View itemView) {

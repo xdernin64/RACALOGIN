@@ -42,40 +42,6 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="70dp"
-                    android:layout_height="118dp"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/textView10"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:text="Codigo:"
-                        android:textColor="#000000" />
-
-                    <TextView
-                        android:id="@+id/textView12"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:text="H. Extras:"
-                        android:textColor="#000000" />
-
-                    <TextView
-                        android:id="@+id/textView13"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:text="H. Salida:"
-                        android:textColor="#000000" />
-                </LinearLayout>
-
-                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
@@ -87,6 +53,13 @@
                         android:layout_margin="10dp"
                         android:hint="@string/cargandonombres"
                         tools:ignore="TextContrastCheck" />
+
+                    <TextView
+                        android:id="@+id/txt_datos"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:hint="@string/cargandocodigo" />
 
                     <TextView
                         android:id="@+id/tvshow_salida"
@@ -103,6 +76,13 @@
                         android:layout_margin="10dp"
                         android:hint="@string/cargando_horasextras"
                         tools:ignore="TextContrastCheck" />
+
+                    <TextView
+                        android:id="@+id/tv_notas"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:text="@string/cargando_horasextras" />
 
                 </LinearLayout>
 

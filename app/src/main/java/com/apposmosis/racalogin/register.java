@@ -50,8 +50,8 @@ public class register extends AppCompatActivity {
     private String celulartext="";
     private String correotext="";
     private String contrasenatext="";
-    private String area;
-    private String labor;
+    private String strarea;
+    private String strlabor;
 
     private ArrayList<String> optiosntrabajo;
     private ArrayAdapter<String> adapterl;
@@ -173,6 +173,9 @@ public class register extends AppCompatActivity {
                 celulartext=celular.getText().toString();
                 correotext=correo.getText().toString();
                 contrasenatext=contrasena.getText().toString();
+                strarea=spnarea.getSelectedItem().toString();
+                strlabor=spnlabor.getSelectedItem().toString();
+
 
 
 //                cargarspinner();
@@ -259,7 +262,8 @@ private void cargarsubspinner(String idarea) {
                     map.put("celular",celulartext);
                     map.put("correo",correotext);
                     map.put("password",contrasenatext);
-                    map.put("uid",id);
+                    map.put("Area",strarea);
+                    map.put("Labor",strlabor);
                     //mDatabase.child("Usuarios").child(id).setValue(map).
                         mFirestore.collection("usuarios").document(id).set(map).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
