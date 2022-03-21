@@ -92,23 +92,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <EditText
-                    android:id="@+id/txt_fecha"
-                    android:layout_width="253dp"
-                    android:layout_height="58dp"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:gravity="center"
-                    android:hint="@string/formatofechahint"
-                    android:importantForAutofill="no"
-                    android:inputType="date"
-                    android:textAlignment="center"
-                    tools:ignore="TextContrastCheck" />
-
-            </LinearLayout>
+                android:orientation="horizontal"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcv_addsalida"

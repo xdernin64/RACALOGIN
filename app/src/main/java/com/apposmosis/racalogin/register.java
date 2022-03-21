@@ -37,7 +37,7 @@ import java.util.Map;
 public class register extends AppCompatActivity {
     private EditText codigo,nombres,apellidos,celular,correo,contrasena;
     public Button btnregistrar;
-    public TextView iralogin;
+    public TextView iralogin,tvarea;
     public Spinner spnarea,spnlabor;
     private QuerySnapshot Areas;
 
@@ -78,6 +78,7 @@ public class register extends AppCompatActivity {
         celular=(EditText)findViewById(R.id.txt_celular);
         correo=(EditText)findViewById(R.id.txt_correo);
         contrasena=(EditText)findViewById(R.id.txt_pwd);
+        tvarea=findViewById(R.id.tvidarea);
 
         //botones
         btnregistrar=findViewById(R.id.btn_register);
@@ -129,6 +130,7 @@ public class register extends AppCompatActivity {
 
                         String docid=String.valueOf(i+1);
                         cargarsubspinner(docid);
+                        tvarea.setText(docid);
                     }
                 }
             }
@@ -139,30 +141,6 @@ public class register extends AppCompatActivity {
             }
         });
 
-
-
-
-
-
-
-        //datos a registrar
-//        optiosarea=new ArrayList<>();
-//        optiosntrabajo=new ArrayList<>();
-//        adaptera=new ArrayAdapter<>(getApplicationContext(),R.layout.support_simple_spinner_dropdown_item);
-//        adaptera.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-//        spnarea.setAdapter(adaptera);
-//        spnarea.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View view, int i, long l) {
-//                Toast.makeText(getApplicationContext(), adaptera.getItem(i), Toast.LENGTH_SHORT).show();
-//                Log.e("Id ", String.valueOf(Areas.getDocuments().get(i)));
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {
-//
-//            }
-//        });
 
         btnregistrar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -200,30 +178,6 @@ public class register extends AppCompatActivity {
         });
 
     }
-//    private void cargarspinner() {
-//        mFirestore.collection("Areas").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-//            @Override
-//            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-//                Areas=queryDocumentSnapshots;
-//                if (queryDocumentSnapshots.size()>0)
-//                {
-//
-//                    for (DocumentSnapshot doc:queryDocumentSnapshots){
-//                        optiosarea.add(doc.getString("Nombre"));
-//                    }
-//                }
-//                else
-//                    Toast.makeText(getApplicationContext(), "Datos encontrados", Toast.LENGTH_SHORT).show();
-//
-//            }
-//        }).addOnFailureListener(new OnFailureListener() {
-//            @Override
-//            public void onFailure(@NonNull Exception e) {
-//                Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-//
-//            }
-//        });
-//    }
 private void cargarsubspinner(String idarea) {
 
     CollectionReference Laborref = mFirestore.collection("Areas").document(idarea).collection("trabajos");
@@ -258,19 +212,28 @@ private void cargarsubspinner(String idarea) {
 
 
                     map.put("codigo",codigotext);
-                    map.put("Nombres y apellidos",nombresyapellidos);
+                    map.put("apellidosynombres",nombresyapellidos);
                     map.put("celular",celulartext);
                     map.put("correo",correotext);
                     map.put("password",contrasenatext);
-                    map.put("Area",strarea);
-                    map.put("Labor",strlabor);
-                    //mDatabase.child("Usuarios").child(id).setValue(map).
+                    map.put("area",strarea);
+                    map.put("labor",strlabor);
+                    map.put("uid",id);
+                    //Salvando en la nueva tabla
                         mFirestore.collection("usuarios").document(id).set(map).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task2) {
                             if (task2.isSuccessful()){
-                                startActivity((new Intent(register.this,Datosusuario.class)));
-                                finish();
+
+                                ///guardandousuario dentro del area
+                                mFirestore.collection("Areas").document(id).collection("usuarios").document(codigotext).set(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        startActivity((new Intent(register.this,Datosusuario.class)));
+                                        finish();
+
+                                    }
+                                });
                             }
                             else
                             {

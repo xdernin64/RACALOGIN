@@ -30,6 +30,13 @@
                 android:textColor="#00897B"
                 android:textSize="60sp" />
 
+            <TextView
+                android:id="@+id/tvidarea"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:visibility="invisible" />
+
             <EditText
                 android:id="@+id/txt_email"
                 android:layout_width="match_parent"
@@ -52,7 +59,7 @@
                 android:gravity="center"
                 android:hint="@string/txt_nombres"
                 android:importantForAutofill="no"
-                android:inputType="text"
+                android:inputType="text|textCapCharacters"
                 android:minHeight="48dp"
                 tools:ignore="TextContrastCheck,TextContrastCheck,TextContrastCheck" />
 
@@ -91,7 +98,7 @@
                 android:gravity="center"
                 android:hint="@string/txt_email"
                 android:importantForAutofill="no"
-                android:inputType="textEmailAddress"
+                android:inputType="textEmailAddress|textCapWords|textCapCharacters"
                 android:minHeight="48dp"
                 tools:ignore="TextContrastCheck,TextContrastCheck,TextContrastCheck" />
 

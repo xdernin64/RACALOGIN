@@ -58,11 +58,12 @@ public class adaptadoraddsalida extends RecyclerView.Adapter<adaptadoraddsalida.
 //        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
 //        String formattedDate = sdf.format(date);
         //holder.txtfecha.setText(10/10/22);
-        String nombres=modeloaddsalid.nombres;
-        String apellidos=modeloaddsalid.apellidos;
-        String datos=nombres+" "+apellidos;
+
         holder.txtcodigo.setText(modeloaddsalid.codigo);
-        holder.txtdatos.setText(datos);
+        holder.txtdatos.setText(modeloaddsalid.apellidosynombres);
+        holder.tvarea.setText(modeloaddsalid.area);
+        holder.tvlabor.setText(modeloaddsalid.labor);
+
 
     }
 
@@ -73,14 +74,16 @@ public class adaptadoraddsalida extends RecyclerView.Adapter<adaptadoraddsalida.
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         EditText txtfecha,txthosrasalida,txthorasextras,txtobservacion;
-        TextView  txtcodigo,txtdatos    ;
+        TextView txtcodigo,txtdatos,tvarea,tvlabor  ;
         CheckBox estado;
         String nombres,apellidos;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            txtfecha=itemView.findViewById(R.id.txt_fechausr);
+
             txtcodigo=itemView.findViewById(R.id.txt_codigousr);
             txtdatos=itemView.findViewById(R.id.txt_datosusr);
+            tvarea=itemView.findViewById(R.id.tv_area);
+            tvlabor=itemView.findViewById(R.id.tv_cargo);
 
         }
     }

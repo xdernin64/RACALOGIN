@@ -77,6 +77,7 @@ public class adaptadorsalidas extends RecyclerView.Adapter<adaptadorsalidas.MyVi
 
         context.startActivity(intebtsalidas);
         actsalidas.finish();
+
     }
 
 
@@ -94,30 +95,8 @@ public class adaptadorsalidas extends RecyclerView.Adapter<adaptadorsalidas.MyVi
     holder.tvcodigo.setText(modelo.codigo);
     holder.tvhsalida.setText(modelo.horadesalida);
     holder.tvhextras.setText(String.valueOf(modelo.horasextra));
-
-        Double price = Double.parseDouble(String.valueOf(salidasArrayList.get(position).getHorasextra()));
-        int count = getItemCount();
-
-
-        for (int i = 0; i < count; i++){
-            Double tsum=0.00;
-            tsum = tsum + price;
-            Log.d("total pay : ", String.valueOf(tsum));
-        }
-        //Intent i = new Intent(context, salidas.class);
-        //i.putExtra("KEY",tsum);
-
-
-        //holder.txthorasemanales.setText(String.valueOf(tsum));
-
-        //holder.tvcodigo.setText(String.valueOf(tsum));
-
-       /* totalhorasextras=totalhorasextras+(modelo.horasextra);
-
-            holder.tvcodigo.setText(totalhorasextras.toString());*/
-
-
-
+    holder.tvdatos.setText(modelo.apellidosynombres);
+    holder.tvobserva.setText(modelo.observacion);
 
 
 
@@ -174,7 +153,7 @@ public class adaptadorsalidas extends RecyclerView.Adapter<adaptadorsalidas.MyVi
             btneliminar=itemView.findViewById(R.id.btn_eliminar);
             txthorasemanales=itemView.findViewById(R.id.txt_fechamax);
             tvdatos=itemView.findViewById(R.id.txt_datos);
-            tvobserva=itemView.findViewById(R.id.tv_observaciones);
+            tvobserva=itemView.findViewById(R.id.tv_notas);
         }
     }
 }

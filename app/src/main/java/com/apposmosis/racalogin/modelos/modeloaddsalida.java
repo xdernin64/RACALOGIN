@@ -12,11 +12,12 @@ public class modeloaddsalida {
     public String observacion;
     public Boolean agregar;
     public String nombres,apellidos;
+    public String apellidosynombres,area,labor;
 
 
     public modeloaddsalida(){}
 
-    public modeloaddsalida(Timestamp fecha, String codigo, String horadesalida, Double horasextras, String observacion, Boolean agregar, String nombres, String apellidos) {
+    public modeloaddsalida(Timestamp fecha, String codigo, String horadesalida, Double horasextras, String observacion, Boolean agregar, String nombres, String apellidos, String apellidosynombres, String area, String labor) {
         this.fecha = fecha;
         this.codigo = codigo;
         this.horadesalida = horadesalida;
@@ -25,6 +26,9 @@ public class modeloaddsalida {
         this.agregar = agregar;
         this.nombres = nombres;
         this.apellidos = apellidos;
+        this.apellidosynombres = apellidosynombres;
+        this.area = area;
+        this.labor = labor;
     }
 
     public String getNombres() {
@@ -91,4 +95,27 @@ public class modeloaddsalida {
         this.agregar = agregar;
     }
 
+    public String getApellidosynombres() {
+        return apellidosynombres;
+    }
+
+    public void setApellidosynombres(String apellidosynombres) {
+        this.apellidosynombres = apellidosynombres;
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
+    }
+
+    public String getLabor() {
+        return labor;
+    }
+
+    public void setLabor(String labor) {
+        this.labor = labor;
+    }
 }
